@@ -17,5 +17,11 @@ class StringCalculatorTest {
 		StringCalculator stringCalculator = new StringCalculator();
 		assertEquals(23, stringCalculator.add("23"));
 	}
+	
+	@Test
+	void testAddTwoNumbersString() {
+		StringCalculator stringCalculator = new StringCalculator();
+		assertEquals(40, stringCalculator.add("23,17"));
+	}
 
 }
