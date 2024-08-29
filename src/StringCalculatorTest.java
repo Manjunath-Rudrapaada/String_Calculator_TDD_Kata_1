@@ -25,9 +25,15 @@ class StringCalculatorTest {
 	}
 	
 	@Test
-	void testAddWithNewLineDelimiter() {
+	void testAddStringWithNewLineDelimiter() {
 		StringCalculator stringCalculator = new StringCalculator();
 		assertEquals(21, stringCalculator.add("1,2,3\n4\n5,6"));
+	}
+	
+	@Test
+	void testAddStringWithCommaAndNewLineDelimiterTogether() {
+		StringCalculator stringCalculator = new StringCalculator();
+		assertEquals(21, stringCalculator.add("1,2,3,\n4\n,5,6"));
 	}
 
 }
