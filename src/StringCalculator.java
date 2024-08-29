@@ -16,7 +16,10 @@ public class StringCalculator {
 		
 		String[] nums = inputString.split(",|\\n");
 		
-		int sum = Arrays.stream(nums).mapToInt(Integer::parseInt).sum();
+		int sum = Arrays.stream(nums)
+				.filter(num -> !num.isEmpty()) // to filter empty strings
+				.mapToInt(Integer::parseInt)
+				.sum();
 		
 		return sum;
 	}
