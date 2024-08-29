@@ -23,5 +23,11 @@ class StringCalculatorTest {
 		StringCalculator stringCalculator = new StringCalculator();
 		assertEquals(40, stringCalculator.add("23,17"));
 	}
+	
+	@Test
+	void testAddWithNewLineDelimiter() {
+		StringCalculator stringCalculator = new StringCalculator();
+		assertEquals(21, stringCalculator.add("1,2,3\n4\n5,6"));
+	}
 
 }
