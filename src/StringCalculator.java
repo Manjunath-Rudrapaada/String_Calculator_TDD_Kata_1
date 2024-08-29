@@ -1,6 +1,7 @@
 
 
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 public class StringCalculator {
 	
@@ -14,7 +15,15 @@ public class StringCalculator {
 			return Integer.parseInt(inputString);
 		}
 		
-		String[] nums = inputString.split(",|\\n");
+		String delimiter = ",|\\n";
+		
+		if (inputString.startsWith("//")) {
+			int delimiterPatternEndIndex = inputString.indexOf("\n");
+			delimiter = Pattern.quote(inputString.substring(2, delimiterPatternEndIndex));
+			inputString = inputString.substring(delimiterPatternEndIndex + 1);
+		}
+		
+		String[] nums = inputString.split(delimiter);
 		
 		int sum = Arrays.stream(nums)
 				.filter(num -> !num.isEmpty()) // to filter empty strings
