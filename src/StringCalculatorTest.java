@@ -19,13 +19,32 @@ class StringCalculatorTest {
 	}
 	
 	@Test
+	void testAddStringWithoutNumber() {
+		StringCalculator stringCalculator = new StringCalculator();
+		assertEquals(-1, stringCalculator.add("s"));
+	}
+	
+	@Test
 	void testAddTwoNumbersString() {
 		StringCalculator stringCalculator = new StringCalculator();
 		assertEquals(40, stringCalculator.add("23,17"));
 	}
 	
 	@Test
-	void testAddStringWithNewLineDelimiter() {
+	void testAddMultipleNumbersString() {
+		StringCalculator stringCalculator = new StringCalculator();
+		assertEquals(40, stringCalculator.add("10,15,5,6,4"));
+		assertEquals(69, stringCalculator.add("3,1,5,11,25,10,8,6"));
+	}
+	
+	@Test
+	void testAddMultipleNumbersStringWithEmptyStringsInBetween() {
+		StringCalculator stringCalculator = new StringCalculator();
+		assertEquals(40, stringCalculator.add(",10,15,5,,6,4,"));
+	}
+	
+	@Test
+	void testAddStringWithNewLineDelimiter() { 
 		StringCalculator stringCalculator = new StringCalculator();
 		assertEquals(21, stringCalculator.add("1,2,3\n4\n5,6"));
 	}
@@ -52,6 +71,12 @@ class StringCalculatorTest {
 	void testAddStringWithCustomDelimiterSemiColon() {
 		StringCalculator stringCalculator = new StringCalculator();
 		assertEquals(15, stringCalculator.add("//;\n1;2;3;4;5"));
+	}
+	
+	@Test
+	void testAddStringWithNegativeNumbers() {
+		StringCalculator stringCalculator = new StringCalculator();
+		stringCalculator.add("1,2,-3,4,-5,-6");
 	}
 
 }
