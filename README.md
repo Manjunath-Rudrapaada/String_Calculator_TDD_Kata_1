@@ -47,3 +47,6 @@ String Calculator TDD Kata 1 Assessment
 
 ### testAddStringWithNegativeNumbers() 
 	// String containing negative numbers (Test case fails since we are throwing Exception)
+	
+### testAddStringContainingNumbersGreaterThanThousand()
+	// Numbers bigger than 1000 are ignored
