@@ -14,15 +14,37 @@ public class StringCalculator {
 		}
 		
 		if (inputString.length() == 1) {
-			if (!inputString.matches("\\d+")) {
-				System.out.println("Invalid Input :" + inputString);
-				return -1;
-			}
-			
-			int result = Integer.parseInt(inputString);
-			return result;
+			return parseSingleNumberInput(inputString);
 		}
 		
+		String[] nums = checkForCustomDelimiterAndSplitTheString(inputString);
+		
+		List<String> numberList = checkForEmptyString(nums);
+		
+		List<String> negativeNumbers = checkForNegativeNumbers(numberList);
+		if (!negativeNumbers.isEmpty()) {
+			throwNegativeNumberException(negativeNumbers);
+		}
+		
+		return calculateSum(numberList);
+	}
+
+	private int parseSingleNumberInput(String inputString) {
+		if (!inputString.matches("\\d+")) { // regex to check if string contains number or a character
+			System.out.println("Invalid Input :" + inputString);
+			return -1;
+		}
+		
+		return Integer.parseInt(inputString);
+	}
+	
+	private List<String> checkForEmptyString(String[] nums) {
+		return Arrays.stream(nums) 
+				.filter(num -> !num.isEmpty())
+				.collect(Collectors.toList());
+	}
+	
+	private String[] checkForCustomDelimiterAndSplitTheString(String inputString) {
 		String delimiter = ",|\\n";
 		
 		if (inputString.startsWith("//")) {
@@ -32,25 +54,26 @@ public class StringCalculator {
 		}
 		
 		String[] nums = inputString.split(delimiter);
-		
-		List<String> numberList = Arrays.stream(nums) 
-				.filter(num -> !num.isEmpty()).collect(Collectors.toList());
-		
-		List<String> negativeNumbers = numberList.stream()
+		return nums;
+	}
+	
+	private List<String> checkForNegativeNumbers(List<String> numberList) {
+		return numberList.stream()
 				.filter(num -> Integer.valueOf(num) < 0)
 				.collect(Collectors.toList());
-		
-		if (!negativeNumbers.isEmpty()) {
+	}
+	
+	private void throwNegativeNumberException(List<String> negativeNumbers) {
 			StringBuilder sb = new StringBuilder("Negative numbers not allowed! ");
 			sb.append(negativeNumbers);
 			throw new IllegalArgumentException(sb.toString());
-		}
-		
-		int sum = numberList.stream()
+	}
+
+	private int calculateSum(List<String> numberList) {
+		return numberList.stream()
 				.mapToInt(Integer::parseInt)
+				.filter(num -> num <= 1000) // Ignore numbers > 1000
 				.sum();
-		
-		return sum;
 	}
 
 }
